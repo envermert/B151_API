@@ -7,12 +7,16 @@ import io.restassured.specification.RequestSpecification;
 import org.junit.Before;
 
 public class JsonplaceholderBaseUrl {
-
+    // setUp metodu ile tekrarlı yapılacak işlemleri topluyoruz.
+    // Test öncesi çalışacak şekilde @Before anotasyonu ekliyoruz.
    protected RequestSpecification spec;
     @Before
     public void Setup(){
 
-        spec = new RequestSpecBuilder().setAccept(ContentType.JSON).setBaseUri("https://jsonplaceholder.typicode.com").build();
+        spec = new RequestSpecBuilder()
+                .setBaseUri("https://jsonplaceholder.typicode.com")
+                .setContentType(ContentType.JSON)
+                .build();
     }
 
 

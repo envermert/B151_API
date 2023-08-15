@@ -5,6 +5,7 @@ import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.junit.Test;
+import org.testng.asserts.SoftAssert;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
@@ -42,7 +43,7 @@ public class Get06 extends HerokuAppBaseUrl {
 
         //1. Set the url
         spec.pathParams("first", "booking"
-                , "second", 123);
+                , "second", 24);
 
         //2. Set expected data
         //3. Sent request  and get response
@@ -79,5 +80,17 @@ public class Get06 extends HerokuAppBaseUrl {
         assertEquals("2019-01-01", json.getString("bookingdates.checkout"));
         assertEquals("super bowls", json.getString("additionalneeds"));
 
+
+        //3.YOL (Soft Assertion)
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(json.getString("firstname"),"Josh");
+        softAssert.assertEquals(json.getString("lastname"),"Allen");
+        softAssert.assertEquals(json.getInt("totalprice"),111);
+        softAssert.assertTrue(json.getBoolean("depositpaid"));
+        softAssert.assertEquals(json.getString("bookingdates.checkin"),"2018-01-01");
+        softAssert.assertEquals(json.getString("bookingdates.checkout"),"2019-01-01");
+        softAssert.assertEquals(json.getString("additionalneeds"),"super bowls");
+
+        softAssert.assertAll();
     }
 }
