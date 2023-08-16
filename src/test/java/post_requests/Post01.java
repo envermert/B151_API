@@ -52,6 +52,7 @@ public class Post01 extends JsonplaceholderBaseUrl {
         //3. Send the request and get the repsonse
         Response response = given(spec).body(payLoad).when().post("{first}");
         response.prettyPrint();
+        //body nin icerisine gondercegimiz veriye payLoad denir
 
         //4. Do assertion
         assertEquals(201,response.statusCode());
