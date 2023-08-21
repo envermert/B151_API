@@ -20,4 +20,14 @@ public class JsonPlaceHolderTestData {
         return expectedData;
     }
 
+    //JsonPlaceHolder'daki json datasini String'e ceviren method
+    public static String converJsonToString (Integer userId, String title,Boolean completed){
+        return "{ \n" +
+                " \"userId\": "+userId+", \n" +
+                " \"title\": \""+title+"\", \n" +
+                " \"completed\": "+completed+" \n" +
+                " } ";
+    }
+
 }
+
