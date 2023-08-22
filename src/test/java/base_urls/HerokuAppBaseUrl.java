@@ -7,11 +7,12 @@ import org.junit.Before;
 
 public class HerokuAppBaseUrl {
 
-   protected RequestSpecification spec;
-    @Before
-    public void Setup(){
+    protected RequestSpecification spec;
 
-        spec = new RequestSpecBuilder().setBaseUri("https://restful-booker.herokuapp.com").setContentType(ContentType.JSON)
+    @Before
+    public void Setup() {
+
+        spec = new RequestSpecBuilder().setBaseUri("https://restful-booker.herokuapp.com").setContentType(ContentType.JSON).addHeader("Cookie", "token=f09f1cce3080e85")
                 .build();
     }
 
