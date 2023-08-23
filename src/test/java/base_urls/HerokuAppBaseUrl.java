@@ -5,6 +5,8 @@ import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import org.junit.Before;
 
+import static utils.AuthenticationHerokuApp.generateToken;
+
 public class HerokuAppBaseUrl {
 
     protected RequestSpecification spec;
@@ -12,7 +14,9 @@ public class HerokuAppBaseUrl {
     @Before
     public void Setup() {
 
-        spec = new RequestSpecBuilder().setBaseUri("https://restful-booker.herokuapp.com").setContentType(ContentType.JSON).addHeader("Cookie", "token=f09f1cce3080e85")
+        spec = new RequestSpecBuilder().setBaseUri("https://restful-booker.herokuapp.com")
+                .setContentType(ContentType.JSON)
+                .addHeader("Cookie", "token="+generateToken())
                 .build();
     }
 

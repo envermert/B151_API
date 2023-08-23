@@ -1,7 +1,6 @@
 package herokuapp_smoketest;
 
 import base_urls.HerokuAppBaseUrl;
-import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.junit.Test;
 import pojos.BookingDatesPojo;
@@ -50,7 +49,7 @@ public class C01_CreateBooking extends HerokuAppBaseUrl {
         }
  */
 
-    public static int id;
+    public static int bookingId;
     @Test
     public void createBooking() {
         //Set the URL
@@ -63,7 +62,7 @@ public class C01_CreateBooking extends HerokuAppBaseUrl {
         //Send the request and get the response
         Response response = given(spec).body(expectedData).when().post("{first}");
         response.prettyPrint();
-        id= response.jsonPath().getInt("bookingid");
+        bookingId = response.jsonPath().getInt("bookingid");
 
 
         //Do assertion

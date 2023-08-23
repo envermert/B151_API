@@ -5,7 +5,7 @@ import io.restassured.response.Response;
 import org.junit.Test;
 import pojos.BookingDatesPojo;
 import pojos.BookingPojo;
-import static herokuapp_smoketest.C01_CreateBooking.id;
+import static herokuapp_smoketest.C01_CreateBooking.bookingId;
 import static io.restassured.RestAssured.given;
 import static org.junit.Assert.assertEquals;
 import static utils.ObjectMapperUtils.convertJsonToJava;
@@ -39,7 +39,7 @@ public class C02_GetBookingById  extends HerokuAppBaseUrl {
     public void getBookingById() {
 
         //Set the URL
-        spec.pathParams("first","booking","second",id);
+        spec.pathParams("first","booking","second", bookingId);
 
         //Set the expected data
         BookingDatesPojo bookingdates=new BookingDatesPojo("2018-01-01","2019-01-01");
