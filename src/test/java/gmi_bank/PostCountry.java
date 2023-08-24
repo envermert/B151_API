@@ -1,7 +1,17 @@
 package gmi_bank;
 
 import base_urls.GmiBankBaseUrl;
+import io.restassured.response.Response;
 import org.junit.Test;
+import pojos.gmi_bank.PostCountryPojo;
+import pojos.gmi_bank.StatesPojo;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static io.restassured.RestAssured.given;
+import static org.testng.AssertJUnit.assertEquals;
+import static utils.ObjectMapperUtils.convertJsonToJava;
 
 public class PostCountry extends GmiBankBaseUrl {
      /*
@@ -70,6 +80,33 @@ public class PostCountry extends GmiBankBaseUrl {
         spec.pathParams("first","api","second","tp-countries");
 
         //Set the expected data
+        StatesPojo state1 = new StatesPojo(1,"Elma");
+        StatesPojo state2 = new StatesPojo(2,"Armut");
+        StatesPojo state3 = new StatesPojo(3,"Portakal");
+        List<StatesPojo> stateList= new ArrayList<>();
+        stateList.add(state1);
+        stateList.add(state2);
+        stateList.add(state3);
+        System.out.println(stateList.size());
 
+        PostCountryPojo expectedData= new PostCountryPojo("Muz Cumhuriyeti",stateList);
+        System.out.println(expectedData);
+
+        //Send the request and get the response
+       Response response = given(spec).body(expectedData).when().post("{first}/{second}");
+       response.prettyPrint();
+
+       //Do assertion
+        PostCountryPojo actualData = convertJsonToJava(response.asString(), PostCountryPojo.class);
+        System.out.println(actualData);
+
+        assertEquals(201,response.statusCode());
+        assertEquals(expectedData.getName(),actualData.getName());
+        assertEquals(state1.getId(),actualData.getStates().get(0).getId());
+        assertEquals(state1.getName(),actualData.getStates().get(0).getName());
+        assertEquals(state2.getId(),actualData.getStates().get(1).getId());
+        assertEquals(state2.getName(),actualData.getStates().get(1).getName());
+        assertEquals(state3.getId(),actualData.getStates().get(2).getId());
+        assertEquals(state3.getName(),actualData.getStates().get(2).getName());
     }
 }
